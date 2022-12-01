@@ -1,42 +1,93 @@
-plugins {
-    id 'com.android.application'
-    id 'org.jetbrains.kotlin.android'
-}
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdk 32
-
+    compileSdkVersion 29
+    buildToolsVersion '28.0.3'
     defaultConfig {
         applicationId "cucerdariancatalin.ux"
-        minSdk 25
-        targetSdk 32
-        versionCode 1
-        versionName "1.0"
-
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 3
+        versionName "2.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = "1.8"
+    }
+
+    lintOptions {
+        disable 'ContentDescription'
     }
 }
 
-dependencies {
+repositories {
+    jcenter()
+    mavenCentral()
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+    maven { url "https://maven.google.com/" }
+}
 
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.5.1'
-    implementation 'com.google.android.material:material:1.7.0'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.4'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+        maven { url "https://maven.google.com/" }
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven { url 'http://dl.bintray.com/amulyakhare/maven' }
+        maven { url 'https://www.testfairy.com/maven' }
+    }
+}
+
+// Required for kotlin annotation processing
+kapt {
+    generateStubs = true
+}
+
+dependencies {
+    // General
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    compileOnly 'org.glassfish:javax.annotation:10.0-b28'
+
+    // Kotlin + Coroutines
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${rootProject.ext.kotlinVersion}"
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.3'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.3'
+
+    // Testing Libraries
+    testImplementation 'junit:junit:4.13'
+    testImplementation 'org.mockito:mockito-core:3.2.4'
+    testImplementation 'org.khronos:opengl-api:gl1.1-android-2.1_r1'
+    androidTestImplementation('androidx.test.espresso:espresso-core:3.2.0', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+
+    // Google/AndroidX Libraries
+    implementation 'com.google.android.material:material:1.2.0-alpha04'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.core:core-ktx:1.3.0-alpha01'
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta4'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.2.0' // For lifecycleScope
+
+    // SeekBar
+    implementation 'com.crystal:crystalrangeseekbar:1.0.0'
+
+    // GravitySnapHelper
+    implementation 'com.github.rubensousa:gravitysnaphelper:2.2.0'
 }
