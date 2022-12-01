@@ -26,6 +26,7 @@ import cucerdariancatalin.ux.filter.FiltersLayout
 import cucerdariancatalin.ux.filter.FiltersMotionLayout
 import cucerdariancatalin.ux.utils.bindView
 
+
 var animationPlaybackSpeed: Double = 0.8
 
 class MainActivity : AppCompatActivity() {
@@ -34,7 +35,7 @@ class MainActivity : AppCompatActivity() {
     private val appbar: AppBarLayout by bindView(R.id.appbar)
     private val drawerIcon: View by bindView(R.id.drawer_icon)
     private val filtersLayout: FiltersLayout by bindView(R.id.filters_layout)
-//    private val filtersMotionLayout: FiltersMotionLayout by bindView(R.id.filters_motion_layout)
+    private val filtersMotionLayout: FiltersMotionLayout by bindView(R.id.filters_motion_layout)
 
     // layout/nav_drawer views
     private val drawerLayout: DrawerLayout by bindView(R.id.drawer_layout)
@@ -92,7 +93,7 @@ class MainActivity : AppCompatActivity() {
         animationSpeedSeekbar.setOnSeekbarChangeListener { value ->
             animationPlaybackSpeed = value as Double
             animationSpeedText.text = "${"%.1f".format(animationPlaybackSpeed)}x"
-//            filtersMotionLayout.updateDurations()
+            filtersMotionLayout.updateDurations()
             updateRecyclerViewAnimDuration()
         }
         drawerIcon.setOnClickListener { drawerLayout.openDrawer(GravityCompat.START) }
@@ -114,7 +115,7 @@ class MainActivity : AppCompatActivity() {
      */
     private fun useFiltersMotionLayout(isChecked: Boolean) {
         filtersLayout.isVisible = !isChecked
-//        filtersMotionLayout.isVisible = isChecked
+        filtersMotionLayout.isVisible = isChecked
     }
 
     /**
