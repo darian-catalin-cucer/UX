@@ -8,7 +8,7 @@ Improve your app design with this comprehensive UX Android app.
 - Latest trends and best practices in UX design for Android
 
 ## Getting Started
-1. Clone the repository: `git clone https://github.com/[username]/ux-android-app.git`
+1. Clone the repository: `git clone https://github.com/cucerdariancatalin/UX.git`
 2. Open the project in Android Studio
 3. Build and run the app on an emulator or physical device
 
